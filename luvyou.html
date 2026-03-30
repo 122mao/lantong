@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东南亚旅游资讯 · 澜通出境助手</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        body {
+            background-color: #f0fdf4;
+            color: #333;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            padding: 15px 0;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .logo-icon {
+            font-size: 28px;
+            color: #60a5fa;
+        }
+        .logo h1 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 8px 12px;
+            border-radius: 5px;
+            transition: all 0.3s ease;
+        }
+        .nav-links a:hover, .nav-links a.active {
+            background-color: rgba(255,255,255,0.2);
+        }
+        .user-actions {
+            display: flex;
+            gap: 15px;
+        }
+        .btn {
+            padding: 8px 18px;
+            border-radius: 5px;
+            border: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn-login {
+            background-color: transparent;
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+        .btn-register {
+            background-color: #60a5fa;
+            color: white;
+        }
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .page-header {
+            background: linear-gradient(135deg, #15803d 0%, #22c55e 100%);
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+        .page-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .page-header p {
+            font-size: 1.2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+        .search-section {
+            background-color: white;
+            padding: 30px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .search-box {
+            max-width: 600px;
+            margin: 0 auto;
+            display: flex;
+            border-radius: 50px;
+            overflow: hidden;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+        .search-box input {
+            flex: 1;
+            padding: 15px 25px;
+            border: none;
+            font-size: 1rem;
+            outline: none;
+        }
+        .search-box button {
+            background-color: #15803d;
+            color: white;
+            border: none;
+            padding: 0 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .search-box button:hover {
+            background-color: #22c55e;
+        }
+        .destinations-section {
+            padding: 50px 0;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .section-title h3 {
+            font-size: 2rem;
+            color: #15803d;
+            margin-bottom: 10px;
+        }
+        .section-title p {
+            color: #64748b;
+        }
+        .country-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 30px;
+        }
+        .country-card {
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .country-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+        }
+        .country-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        .country-name {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background-color: rgba(0,0,0,0.65);
+            color: white;
+            padding: 6px 18px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 1.3rem;
+        }
+        .country-content {
+            padding: 20px;
+            flex-grow: 1;
+        }
+        .info-section {
+            margin-bottom: 18px;
+        }
+        .info-title {
+            font-weight: 700;
+            color: #15803d;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-left: 3px solid #22c55e;
+            padding-left: 10px;
+        }
+        .info-title i {
+            color: #22c55e;
+            font-size: 1rem;
+        }
+        .attractions-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .attractions-list li {
+            background-color: #f0fdf4;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            color: #166534;
+        }
+        .season-text, .food-text, .tip-text {
+            font-size: 0.9rem;
+            color: #475569;
+            line-height: 1.5;
+        }
+        .btn-detail {
+            display: block;
+            width: 100%;
+            background-color: #f0fdf4;
+            color: #15803d;
+            border: 1px solid #bbf7d0;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            font-weight: 600;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+        .btn-detail:hover {
+            background-color: #15803d;
+            color: white;
+            border-color: #15803d;
+        }
+        footer {
+            background-color: #1e293b;
+            color: #cbd5e1;
+            padding: 40px 0 20px;
+            margin-top: 40px;
+        }
+        .footer-bottom {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #334155;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .nav-links {
+                gap: 15px;
+            }
+            .page-header h2 {
+                font-size: 2rem;
+            }
+            .country-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        @media (max-width: 576px) {
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">
+                    <div class="logo-icon"><i class="fas fa-globe"></i></div>
+                    <h1>澜通 · 出境助手</h1>
+                </div>
+                <div class="nav-links">
+                    <a href="https://122mao.github.io/lantong">首页</a>
+                    <a href="https://122mao.github.io/lantong/faluv.html">法律指南</a>
+                    <a href="#" class="active">旅游资讯</a>
+                    <a href="#">紧急援助</a>
+                    <a href="#">关于我们</a>
+                </div>
+                <div class="user-actions">
+                    <button class="btn btn-login">登录</button>
+                    <button class="btn btn-register">注册</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <section class="page-header">
+        <div class="container">
+            <h2>东南亚旅游资讯</h2>
+            <p>泰国 · 越南 · 老挝 · 柬埔寨 · 缅甸 | 景点、季节、美食全攻略</p>
+        </div>
+    </section>
+
+    <section class="search-section">
+        <div class="container">
+            <div class="search-box">
+                <input type="text" placeholder="搜索国家、景点或美食...">
+                <button><i class="fas fa-search"></i></button>
+            </div>
+        </div>
+    </section>
+
+    <section class="destinations-section">
+        <div class="container">
+            <div class="section-title">
+                <h3>目的地深度指南</h3>
+                <p>热门景点 · 最佳季节 · 地道美食 · 实用贴士</p>
+            </div>
+            <div class="country-grid">
+                <!-- 泰国 -->
+                <div class="country-card">
+                    <div class="country-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1537956965359-7573183d1f57?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <span class="country-name">泰国</span>
+                    </div>
+                    <div class="country-content">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-landmark"></i> 热门景点</div>
+                            <ul class="attractions-list"><li>大皇宫</li><li>普吉岛</li><li>清迈古城</li><li>芭堤雅</li><li>郑王庙</li></ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-calendar-alt"></i> 季节特色</div>
+                            <div class="season-text">11-2月最佳，气候凉爽；5-10月海岛游客少、价格低；3-5月泼水节狂欢。</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-utensils"></i> 美食推荐</div>
+                            <div class="food-text">冬阴功汤、泰式炒河粉、芒果糯米饭、青木瓜沙拉、椰子冰淇淋</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-lightbulb"></i> 实用贴士</div>
+                            <div class="tip-text">💡 进寺庙需脱鞋、着装得体；</div>
+                        </div>
+                        <a href="#" class="btn-detail">查看详细攻略</a>
+                    </div>
+                </div>
+                <!-- 越南 -->
+                <div class="country-card">
+                    <div class="country-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1528127269322-539801943592?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <span class="country-name">越南</span>
+                    </div>
+                    <div class="country-content">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-landmark"></i> 热门景点</div>
+                            <ul class="attractions-list"><li>下龙湾</li><li>会安古城</li><li>河内老城区</li><li>岘港美溪海滩</li><li>胡志明市统一宫</li></ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-calendar-alt"></i> 季节特色</div>
+                            <div class="season-text"> 2-4月百花盛开，气候温和；5-8月海滩旺季；9-11月中部最佳旅游季。</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-utensils"></i> 美食推荐</div>
+                            <div class="food-text">越南河粉、法棍三明治、春卷、滴漏咖啡、越南煎饼</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-lightbulb"></i> 实用贴士</div>
+                            <div class="tip-text">💡 过马路时手示意、匀速通过；摩托车大国，注意交通安全</div>
+                        </div>
+                        <a href="#" class="btn-detail">查看详细攻略</a>
+                    </div>
+                </div>
+                <!-- 老挝 -->
+                <div class="country-card">
+                    <div class="country-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <span class="country-name">老挝</span>
+                    </div>
+                    <div class="country-content">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-landmark"></i> 热门景点</div>
+                            <ul class="attractions-list"><li>琅勃拉邦古城</li><li>光西瀑布</li><li>万象塔銮寺</li><li>万荣户外天堂</li><li>四千美岛</li></ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-calendar-alt"></i> 季节特色</div>
+                            <div class="season-text">11-2月最佳，干爽舒适；3-5月炎热，可体验老挝新年泼水；6-10月瀑布水量大、田园翠绿。</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-utensils"></i> 美食推荐</div>
+                            <div class="food-text">老挝糯米饭、拉普沙拉、老挝啤酒、烤鱼、竹筒饭</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-lightbulb"></i> 实用贴士</div>
+                            <div class="tip-text">💡 清晨布施请保持安静、衣着得体；老挝基普现金为主；</div>
+                        </div>
+                        <a href="#" class="btn-detail">查看详细攻略</a>
+                    </div>
+                </div>
+                <!-- 柬埔寨 -->
+                <div class="country-card">
+                    <div class="country-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1544735716-392fe2489ffa?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <span class="country-name">柬埔寨</span>
+                    </div>
+                    <div class="country-content">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-landmark"></i> 热门景点</div>
+                            <ul class="attractions-list"><li>吴哥窟</li><li>巴戎寺高棉微笑</li><li>洞里萨湖</li><li>金边皇宫</li><li>西哈努克海滩</li></ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-calendar-alt"></i> 季节特色</div>
+                            <div class="season-text">11-4月最佳旅行时间，天气晴朗；5-10月游客少、植被茂盛，吴哥护城河倒影绝美。</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-utensils"></i> 美食推荐</div>
+                            <div class="food-text">阿莫克鱼、柬式春卷、高棉咖喱、烤香蕉、棕糖汁</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-lightbulb"></i> 实用贴士</div>
+                            <div class="tip-text">💡 吴哥窟穿有袖上衣、过膝裤；美元通用，准备小额；景区内拒绝主动递东西的小孩。</div>
+                        </div>
+                        <a href="#" class="btn-detail">查看详细攻略</a>
+                    </div>
+                </div>
+                <!-- 缅甸 -->
+                <div class="country-card">
+                    <div class="country-image" style="background-image: linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.1)), url('https://images.unsplash.com/photo-1523805009345-7448842e9c2c?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80');">
+                        <span class="country-name">缅甸</span>
+                    </div>
+                    <div class="country-content">
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-landmark"></i> 热门景点</div>
+                            <ul class="attractions-list"><li>蒲甘千塔之城</li><li>仰光大金塔</li><li>曼德勒乌本桥</li><li>茵莱湖</li><li>维桑海滩</li></ul>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-calendar-alt"></i> 季节特色</div>
+                            <div class="season-text">11-2月最佳，气候干爽；3-5月高温，可体验泼水节；6-10月游客少、蒲甘绿意盎然。</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-utensils"></i> 美食推荐</div>
+                            <div class="food-text">缅甸茶叶沙拉、莫西汤面、缅甸咖喱、椰子面、缅甸奶茶</div>
+                        </div>
+                        <div class="info-section">
+                            <div class="info-title"><i class="fas fa-lightbulb"></i> 实用贴士</div>
+                            <div class="tip-text">💡 进佛寺需脱鞋袜，着过膝裤/裙；缅币为主；部分地区网络受限。</div>
+                        </div>
+                        <a href="#" class="btn-detail">查看详细攻略</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-bottom">
+                <p>© 2025 澜通 · 让出境旅行更安心</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const cards = document.querySelectorAll('.country-card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() { this.style.transform = 'translateY(-8px)'; });
+                card.addEventListener('mouseleave', function() { this.style.transform = 'translateY(0)'; });
+            });
+            const searchInput = document.querySelector('.search-box input');
+            if (searchInput) {
+                searchInput.addEventListener('focus', function() { this.parentElement.style.boxShadow = '0 5px 20px rgba(34,197,94,0.3)'; });
+                searchInput.addEventListener('blur', function() { this.parentElement.style.boxShadow = '0 2px 5px rgba(0,0,0,0.05)'; });
+            }
+            const buttons = document.querySelectorAll('.btn, .btn-detail');
+            buttons.forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    this.style.transform = 'scale(0.98)';
+                    setTimeout(() => { this.style.transform = ''; }, 150);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
